@@ -1,32 +1,38 @@
-Eigen/
-
-build/
-
-# 忽略 CMake 中间文件
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
-
-.vscode/
-
-# 忽略数据文件
-data/
-*.bin
-*.hdf5
-
-*.png
-
 *.o
 *.out
-*.exe
+*.log
+*.bin
 *.a
 *.so
-*.log
+*.exe
 
-# 忽略 core dump
-core
+#构建目录
+/build/
+/bin/
+/CMakeFiles/
+/CMakeCache.txt
+cmake_install.cmake
 
-*~
+# 数据文件
+/data/*.bin
+/data/*.hdf5
+
+.vscode/
 *.swp
-.DS_Store
+*.swo
+*.user
+*.DS_Store
+*.idea/
+compile_commands.json
+
+# 临时或调试文件
+*.tmp
+*.bak
+*.old
+core
+*.prof
+
+
+/docs/pics/*.png
+
+/Eigen/
