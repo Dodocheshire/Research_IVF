@@ -3,7 +3,7 @@
 - 原有IVF (SPFresh) 保留在``IVF.cpp``, ``IVF.h``中
 - 原有K-means保留在``Kmeans.cpp``, ``Kmeans.h``中
 
-原有代码均未修改，添加了Makefile，可以直接make运行，得到SPFresh的运行结果
+原有代码均未修改，添加了Makefile，可以直接make运行(运行前请修改链接库路径为自己的路径)，得到SPFresh的运行结果
 
 - 使用``main_rawdim.cpp``进行测试
 
