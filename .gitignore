@@ -14,8 +14,9 @@
 cmake_install.cmake
 
 # 数据文件
-/data/*.bin
-/data/*.hdf5
+/data/
+*.hdf5
+*.bin
 
 .vscode/
 *.swp
@@ -33,6 +34,7 @@ core
 *.prof
 
 
-/docs/pics/*.png
+*.png
+*.pdf
 
 /Eigen/
