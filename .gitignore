@@ -1,0 +1,32 @@
+Eigen/
+
+build/
+
+# 忽略 CMake 中间文件
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+.vscode/
+
+# 忽略数据文件
+data/
+*.bin
+*.hdf5
+
+*.png
+
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.log
+
+# 忽略 core dump
+core
+
+*~
+*.swp
+.DS_Store
