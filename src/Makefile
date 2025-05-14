@@ -9,8 +9,7 @@ all:
 	$(MAKE) main
 
 main:
-	mkdir -p ../build
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c main_rawdim.cpp -o ../build/main_rawdim.o
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c main_rawdim.cpp -o ../build/main.o
 
 clean:
 	$(MAKE) -C utils clean

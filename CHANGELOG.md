@@ -34,3 +34,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 如上，在增添clustering目录下的文件时，只需修改对应目录下的Makefile，如果还需要添加而非覆盖原有编译选项，可以CXXFLAGS += -Wextra...,最后在顶层目录make.
 ---
 
+## [v0.0.1] - 2025-05-14 - 彭程
+### Added
+- add interface KNN(for now use SimpleKNN which takes brute enumeration), Indexer(will be implemented by balanced-kmeans), concrete class Partition and its MetaData
+
+### Changed
+- reconstruct part of the code, use null bit map to track deleted items in a partition for lazy delete
+
+### Fixed
+- 
+
+### Comments
+- 怎么跟踪全局的重建误差呢？直接重算耗时会不会太长？
+- balanced kmeans方便实现Indexer类吗？

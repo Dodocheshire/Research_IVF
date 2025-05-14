@@ -20,11 +20,12 @@ MAP := $(BIN).map
 
 .PHONY: all clean
 
-all: 
-	make -C src all
+all:
+	mkdir -p build
+	$(MAKE) -C src 
 	$(CXX) $(shell find $(BUILD_DIR) -name '*.o') -o $(BIN) $(LIBS) -Wl,-Map=$(MAP)
 	objdump -d -S $(BIN) > $(ASM)
 
-clean:
+clean:  
 	$(MAKE) -C src clean
 	rm -rf $(BUILD_DIR)/*
