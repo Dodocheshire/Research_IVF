@@ -3,6 +3,7 @@
 
 using vector_id_t = int;
 using index_t = int;
+using cluster_id_t = int;
 using partition_id_t = int;
 using data_t = std::vector<float>;
 

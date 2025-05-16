@@ -54,7 +54,7 @@ private:
     uint32_t size_ = 0; //记录分区中有效的数据个数
     std::vector<float> initial_centroid_; // 每次重建时更新
     std::vector<float> current_centroid_; // 每次insert或delete时更新
-    float temperature_ = 0;
+    float temperature_ = 1.0;
     float reindexing_score_ = 0;
 };
 
@@ -85,6 +85,10 @@ public:
         return data_;
     }
 
+    std::vector<float> getCentroid() {
+        return partition_meta_.current_centroid_;
+    }
+
     /**
      * @brief 序列化PartitionMetadata并根据nullbitmap序列化data_
      */
@@ -94,6 +98,37 @@ public:
      * @brief 反序列化PartitionMetadata并根据nullbitmap反序列化data_
      */
     void serializeFrom(std::istream &is);
+
+    std::vector<std::pair<std::vector<float>, vector_id_t>> get_valid_data() const {
+        std::vector<std::pair<std::vector<float>, vector_id_t>> result;
+        for (size_t i = 0; i < data_.size(); ++i) {
+            if (!null_bitmap_.is_null(i)) {
+                result.emplace_back(data_[i], vector_ids[i]);
+            }
+        }
+        return result;
+    }
+
+    // 清除无效数据，重新整理结构
+    void Partition::compact() {
+        std::vector<std::vector<float>> new_data;
+        std::vector<vector_id_t> new_vector_ids;
+        std::unordered_map<vector_id_t, index_t> new_id_to_index;
+        NullBitmap new_bitmap(null_bitmap_.size() - null_bitmap_.count_nulls());
+        for (size_t i = 0; i < data_.size(); ++i) {
+            if (!null_bitmap_.is_null(i)) {
+                index_t new_idx = static_cast<index_t>(new_data.size());
+                new_data.push_back(std::move(data_[i]));
+                new_vector_ids.push_back(vector_ids[i]);
+                new_id_to_index[vector_ids[i]] = new_idx;
+            }
+        }
+        data_ = std::move(new_data);
+        vector_ids = std::move(new_vector_ids);
+        id_to_index = std::move(new_id_to_index);
+        null_bitmap_ = std::move(new_bitmap);
+    }
+
     
 
 private:

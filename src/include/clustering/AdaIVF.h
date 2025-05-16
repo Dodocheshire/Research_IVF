@@ -1,5 +1,5 @@
 #pragma once
-#include "k_means.h"
+#include "B_k_means.h"
 #include <queue>
 #include <vector>
 #include <unordered_set>
@@ -67,11 +67,11 @@ it should have a larger score, and vice-versa for low temperature
 
 class AdaIVF {
 public:
-    AdaIVF(int nlist_, int nprobe_, int max_iter_ = 100);
+    AdaIVF(int nprobe_, int max_iter_ = 100);
 
     ~AdaIVF();
 
-    void build(const std::vector<std::vector<float>>& data);
+    void build(std::vector<std::vector<float>>& data);
 
     std::vector<vector_id_t> search(const std::vector<float>& query, int k);
 
@@ -81,13 +81,11 @@ public:
     
 
 private:
-    int nlist_;
     int nprobe_;
     bool centroids_updated_ = false;
 
-    std::unordered_set<partition_id_t> partition_ids_; 
     std::unordered_map<vector_id_t, partition_id_t> vid_to_pid_; //global map from vectors to partition
-    std::unordered_map<partition_id_t, Partition*> pid_to_partition;
+    std::vector<Partition*> partitions_;
 
     // params for reindex
     const float target_partition_size_ = 1000.0f; // Target partition size
